@@ -1,47 +1,70 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "./Dashboard.css";
 
 function Dashboard() {
-  const [results, setResults] = useState([]);
+  const [bmi, setBmi] = useState(null);
+  const [bodyFat, setBodyFat] = useState(null);
+  const [calories, setCalories] = useState(null);
+  const [history, setHistory] = useState([]);
 
   useEffect(() => {
-    load();
+    fetchAllData();
   }, []);
 
-  const load = async () => {
+  const fetchAllData = async () => {
     try {
-      const res = await axios.get(
-        `https://health-backend-ltzq.onrender.com/api/history/${localStorage.getItem("userId")}`
-      );
-      setResults(res.data);
+      const bmiRes = await axios.get("/api/bmi");
+      const fatRes = await axios.get("/api/bodyfat");
+      const calRes = await axios.get("/api/calories");
+      const historyRes = await axios.get("/api/results");
+      axios.get("https://health-backend-ltzq.onrender.com/api/bmi")
+
+      setBmi(bmiRes.data);
+      setBodyFat(fatRes.data);
+      setCalories(calRes.data);
+      setHistory(historyRes.data || []);
     } catch (err) {
-      console.log(err);
+      console.error("Dashboard load error:", err);
     }
   };
 
   return (
-    <div style={{ padding: "20px", background: "#f5f7fb" }}>
-      <h1>🏥 Health Dashboard</h1>
+    <div className="dashboard">
+      <h1 className="title">Smart Health Dashboard</h1>
 
-      {results.map((item) => (
-        <div key={item._id} style={{
-          background: "white",
-          padding: "15px",
-          marginBottom: "15px",
-          borderRadius: "10px",
-          boxShadow: "0 2px 5px rgba(0,0,0,0.1)"
-        }}>
-          <h2>{item.testType}</h2>
-
-          <pre style={{ fontSize: "14px" }}>
-            {JSON.stringify(item.result, null, 2)}
-          </pre>
-
-          <small>
-            {new Date(item.createdAt).toLocaleString()}
-          </small>
+      <div className="grid">
+        <div className="card">
+          <h3>BMI</h3>
+          <p>{bmi?.value ?? "N/A"}</p>
         </div>
-      ))}
+
+        <div className="card">
+          <h3>Body Fat</h3>
+          <p>{bodyFat?.value ?? "N/A"}%</p>
+        </div>
+
+        <div className="card">
+          <h3>Calories</h3>
+          <p>{calories?.value ?? "N/A"} kcal</p>
+        </div>
+      </div>
+
+      <div className="history">
+        <h2>Recent History</h2>
+
+        {history.length === 0 ? (
+          <p>No history found</p>
+        ) : (
+          <ul>
+            {history.map((item, index) => (
+              <li key={index}>
+                {item.type} → {item.value}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }

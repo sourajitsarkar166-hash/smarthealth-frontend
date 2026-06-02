@@ -1,33 +1,34 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import Navbar from "./components/Navbar";
-
+import Sidebar from "./components/Sidebar";
 import Dashboard from "./pages/Dashboard";
 import BMI from "./pages/BMI";
 import BodyFat from "./pages/BodyFat";
 import Calories from "./pages/Calories";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
 import History from "./pages/History";
-import Chatbot from "./pages/Chatbot";
+import "./styles/global.css";
+import ColorBlindTest from "./pages/ColorBlindTest";
 
-function App() {
+export default function App() {
   return (
     <BrowserRouter>
-      <Navbar />
+      <div className="flex">
+        
+        {/* Sidebar */}
+        <Sidebar />
 
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/bmi" element={<BMI />} />
-        <Route path="/bodyfat" element={<BodyFat />} />
-        <Route path="/calories" element={<Calories />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/history" element={<History />} />
-        <Route path="/chatbot" element={<Chatbot />} />
-      </Routes>
+        {/* Main Content */}
+        <div className="flex-1 p-6 bg-gradient-to-br from-slate-100 to-slate-200 min-h-screen">
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/bmi" element={<BMI />} />
+            <Route path="/bodyfat" element={<BodyFat />} />
+            <Route path="/calories" element={<Calories />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/color-test" element={<ColorBlindTest />} />
+          </Routes>
+        </div>
+
+      </div>
     </BrowserRouter>
   );
 }
-
-export default App;

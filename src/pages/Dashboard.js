@@ -13,21 +13,29 @@ function Dashboard() {
   }, []);
 
   const fetchAllData = async () => {
-    try {
-      const bmiRes = await axios.get("/api/bmi");
-      const fatRes = await axios.get("/api/bodyfat");
-      const calRes = await axios.get("/api/calories");
-      const historyRes = await axios.get("/api/results");
-      axios.get("https://health-backend-ltzq.onrender.com/api/bmi")
+  try {
+    const baseURL = "https://health-backend-ltzq.onrender.com";
 
-      setBmi(bmiRes.data);
-      setBodyFat(fatRes.data);
-      setCalories(calRes.data);
-      setHistory(historyRes.data || []);
-    } catch (err) {
-      console.error("Dashboard load error:", err);
-    }
-  };
+    const bmiRes = await axios.get(`${baseURL}/api/bmi`);
+    const fatRes = await axios.get(`${baseURL}/api/bodyfat`);
+    const calRes = await axios.get(`${baseURL}/api/calories`);
+    const historyRes = await axios.get(`${baseURL}/api/results`);
+
+    setBmi(bmiRes.data || null);
+    setBodyFat(fatRes.data || null);
+    setCalories(calRes.data || null);
+
+    setHistory(Array.isArray(historyRes.data) ? historyRes.data : []);
+
+  } catch (err) {
+    console.error("Dashboard load error:", err);
+
+    setBmi(null);
+    setBodyFat(null);
+    setCalories(null);
+    setHistory([]);
+  }
+};
 
   return (
     <div className="dashboard">

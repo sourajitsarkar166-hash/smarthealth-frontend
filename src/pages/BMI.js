@@ -8,22 +8,37 @@ function BMI() {
 
   const calculateBMI = async () => {
   try {
-    const res = await axios.post("https://health-backend-ltzq.onrender.com/api/bmi/calculate", {
-      height: Number(height),
-      weight: Number(weight)
-    });
+    const res = await axios.post(
+      "https://health-backend-ltzq.onrender.com/api/bmi/calculate",
+      {
+        height: Number(height),
+        weight: Number(weight),
+      }
+    );
 
-    setResult(res.data);
+    // SAFE CHECK
+    if (res.data) {
+      setResult(res.data);
+    } else {
+      setResult(null);
+    }
 
-    // SAVE TO DATABASE (IMPORTANT)
-    await axios.post("https://health-backend-ltzq.onrender.com/api/results/save", {
-       userId: localStorage.getItem("userId"),
-      testType: "BMI",
-      result: res.data
-    });
-
+    // SAVE TO DATABASE
+    await axios.post(
+      "https://health-backend-ltzq.onrender.com/api/results/save",
+      {
+        userId: localStorage.getItem("userId"),
+        testType: "BMI",
+        result: res.data,
+      }
+    );
   } catch (err) {
-    console.log(err);
+    console.log("BMI API ERROR:", err);
+
+    setResult({
+      bmi: "Error",
+      category: "Server issue or network error",
+    });
   }
 };
 

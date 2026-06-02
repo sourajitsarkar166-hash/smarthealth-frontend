@@ -1,24 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Navbar from "./components/Navbar";
+
+import Dashboard from "./pages/Dashboard";
+import BMI from "./pages/BMI";
+import BodyFat from "./pages/BodyFat";
+import Calories from "./pages/Calories";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import History from "./pages/History";
+import Chatbot from "./pages/Chatbot";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Navbar />
+
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/bmi" element={<BMI />} />
+        <Route path="/bodyfat" element={<BodyFat />} />
+        <Route path="/calories" element={<Calories />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/history" element={<History />} />
+        <Route path="/chatbot" element={<Chatbot />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

@@ -6,7 +6,7 @@ import BodyFat from "./pages/BodyFat";
 import Calories from "./pages/Calories";
 import History from "./pages/History";
 import "./styles/global.css";
-import ColorBlindTest from "./pages/ColorBlindTest";
+
 
 export default function App() {
   return (

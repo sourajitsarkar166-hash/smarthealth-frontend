@@ -43,35 +43,36 @@ function BMI() {
 };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>BMI Calculator</h1>
+  <div style={{ padding: "20px" }}>
+    <h1>BMI Calculator</h1>
 
-      <input
-        placeholder="Height (cm)"
-        value={height}
-        onChange={(e) => setHeight(e.target.value)}
-      />
+    <input
+      placeholder="Height (cm)"
+      value={height}
+      onChange={(e) => setHeight(e.target.value)}
+    />
 
-      <br /><br />
+    <br /><br />
 
-      <input
-        placeholder="Weight (kg)"
-        value={weight}
-        onChange={(e) => setWeight(e.target.value)}
-      />
+    <input
+      placeholder="Weight (kg)"
+      value={weight}
+      onChange={(e) => setWeight(e.target.value)}
+    />
 
-      <br /><br />
+    <br /><br />
 
-      <button onClick={calculateBMI}>Calculate</button>
+    <button onClick={calculateBMI}>
+      Calculate BMI
+    </button>
 
-      {result && (
-        <div style={{ marginTop: "20px" }}>
-          <h3>BMI: {result.bmi}</h3>
-          <p>Category: {result.category}</p>
-        </div>
-      )}
-    </div>
-  );
+    {result && (
+      <div style={{ marginTop: "20px" }}>
+        <h3>BMI: {result.bmi ?? "N/A"}</h3>
+        <p>Category: {result.category ?? "N/A"}</p>
+      </div>
+    )}
+  </div>
+);
 }
-
 export default BMI;

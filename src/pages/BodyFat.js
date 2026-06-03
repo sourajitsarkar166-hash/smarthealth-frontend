@@ -53,12 +53,13 @@ function BodyFat() {
 
       <button onClick={calculate}>Calculate Body Fat</button>
 
-      {result && (
+      {result ? (
         <div style={{ marginTop: "20px" }}>
-          <h3>Body Fat: {result.bodyFat}%</h3>
-          <p>Category: {result.category}</p>
-          <p><b>AI Insight:</b> {result.aiComment}</p>
+          <h3>Body Fat: {result.bodyFat ?? "N/A"}%</h3>
+          <p>Category: {result.category ?? "N/A"}</p>
         </div>
+      ) : (
+        <p>Please enter required details</p>
       )}
     </div>
   );

@@ -12,23 +12,24 @@ export default function App() {
   return (
     <BrowserRouter>
       <div className="flex">
-        
-        {/* Sidebar */}
-        <Sidebar />
+  
+  {/* Sidebar with fixed width */}
+  <div className="w-64 fixed h-screen">
+    <Sidebar />
+  </div>
 
-        {/* Main Content */}
-        <div className="flex-1 p-6 bg-gradient-to-br from-slate-100 to-slate-200 min-h-screen">
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/bmi" element={<BMI />} />
-            <Route path="/bodyfat" element={<BodyFat />} />
-            <Route path="/calories" element={<Calories />} />
-            <Route path="/history" element={<History />} />
-            <Route path="/color-test" element={<ColorBlindTest />} />
-          </Routes>
-        </div>
+  {/* Main content pushed right */}
+  <div className="ml-64 flex-1 p-6 bg-gray-100 min-h-screen">
+    <Routes>
+      <Route path="/" element={<Dashboard />} />
+      <Route path="/bmi" element={<BMI />} />
+      <Route path="/bodyfat" element={<BodyFat />} />
+      <Route path="/calories" element={<Calories />} />
+      <Route path="/history" element={<History />} />
+    </Routes>
+  </div>
 
-      </div>
+</div>
     </BrowserRouter>
   );
 }
